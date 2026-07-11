@@ -10,7 +10,6 @@ on:
 
 permissions:
   contents: write
-  workflows: write
 
 jobs:
   fix-structure:
@@ -47,8 +46,12 @@ jobs:
           git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/SZPlayerController.cpp" "Source/SpecimenZero/Private/Core/SZPlayerController.cpp"
           mkdir -p "Config"
           git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/UI/.github/workflows/Config/DefaultGame.ini" "Config/DefaultGame.ini"
-          mkdir -p ".github/workflows"
-          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/UI/.github/workflows/android-signing.yml" ".github/workflows/android-signing.yml"
+          # NOTE: android-signing.yml is intentionally moved to the repo root, not into
+          # .github/workflows/, because GitHub blocks automated bots from writing to the
+          # workflows folder for security reasons. You'll need to drag this one file into
+          # .github/workflows/ yourself afterward (takes 30 seconds, see instructions).
+          mkdir -p "PLEASE_MOVE_ME_TO_.github-workflows"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/UI/.github/workflows/android-signing.yml" "PLEASE_MOVE_ME_TO_.github-workflows/android-signing.yml"
           mkdir -p "Source/SpecimenZero/Public/UI"
           git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/UI/SZMobileHUD.h" "Source/SpecimenZero/Public/UI/SZMobileHUD.h"
           mkdir -p "Source/SpecimenZero/Public/Core"
