@@ -1,0 +1,41 @@
+# Unreal Engine Official Ignore Patterns
+Binaries/*
+DerivedDataCache/*
+Intermediate/*
+Saved/*
+Build/*
+
+# Project specific ignores
+FileOpenOrder/*
+**/Build/
+
+# Visual Studio temporary files
+.vs/
+*.sln
+*.suo
+*.opensdf
+*.sdf
+*.VC.db
+*.VC.opendb
+
+# Android specific (Crucial for mobile)
+/Intermediate/Android/
+/Intermediate/Build/Android/
+*.apk
+*.aab
+*.obb
+
+# Scripting and IDEs
+.idea/
+.vscode/
+*.code-workspace
+
+# Large Asset tracking (Use Git LFS for these instead)
+# Only ignore if you are NOT using LFS for some reason
+# *.uasset
+# *.umap
+
+# Local configuration
+# Do not share developer-specific settings
+Config/DefaultEditorPerProjectUserSettings.ini
+Config/DefaultEditorSettings.ini
