@@ -1,0 +1,30 @@
+name: Generate Signed APK
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-sign:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Build Unsigned APK
+        run: |
+          & "C:\Program Files\Epic Games\UE_5.6\Engine\Build\BatchFiles\RunUAT.bat" `
+          BuildCookRun -project="${{ github.workspace }}\SpecimenZero.uproject" `
+          -platform=Android -cookflavor=ASTC -clientconfig=Shipping -noP4 -cook -build -stage -pak -archive `
+          -archivedirectory="${{ github.workspace }}\BuildOutput"
+
+      - name: Sign APK with Keystore
+        run: |
+          # Use the Android Build Tools to sign the APK
+          apksigner sign --ks ${{ secrets.KEYSTORE_PATH }} `
+          --ks-key-alias ${{ secrets.KEY_ALIAS }} `
+          --ks-pass pass:${{ secrets.KEYSTORE_PASSWORD }} `
+          --out BuildOutput/SpecimenZero_Signed.apk `
+          BuildOutput/Android_ASTC/*.apk
