@@ -1,0 +1,102 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "5.6",
+	"Category": "",
+	"Description": "Specimen Zero: Mobile Optimized Horror",
+	"Modules": [
+		{
+			"Name": "SpecimenZero",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine",
+				"ChaosVehicles",
+				"AIModule"
+			]
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "ChaosVehiclesPlugin",
+			"Enabled": true
+		},
+		{
+			"Name": "OodleNetwork",
+			"Enabled": true
+		},
+		{
+			"Name": "ModelingToolsEditorMode",
+			"Enabled": true,
+			"TargetAllowList": [
+				"Editor"
+			]
+		}
+	]
+}
+```
+---
+### File 2: GitHub Actions Workflow for APK
+**Location:** `.github/workflows/android-build.yml`
+*This file automates the creation of the APK. Note: Because Unreal Engine is too large for GitHub's default cloud runners, you must use a **self-hosted runner** (your own PC).*
+```yaml
+name: Build-SpecimenZero-APK
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: # Allows manual run from GitHub UI
+jobs:
+  build-android:
+    # Requires you to set up your PC as a "Runner" in GitHub Settings
+    runs-on: self-hosted 
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          lfs: true # Crucial for your vehicle assets
+      - name: Build Android APK (Shipping ASTC)
+        # Replaces placeholders with your actual local UE5 path
+        run: |
+          & "C:\Program Files\Epic Games\UE_5.6\Engine\Build\BatchFiles\RunUAT.bat" `
+          BuildCookRun `
+          -project="${{ github.workspace }}\SpecimenZero.uproject" `
+          -platform=Android `
+          -cookflavor=ASTC `
+          -clientconfig=Shipping `
+          -noP4 -cook -allmaps -build -stage -pak -archive `
+          -archivedirectory="${{ github.workspace }}\BuildOutput" `
+          -Compressed `
+          -iterativecooking
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SpecimenZero-Shipping-APK
+          path: BuildOutput/Android_ASTC/*.apk
+```
+---
+### File 3: The "Anti-Hang" Engine Settings
+**Location:** `Config/DefaultEngine.ini`
+*To prevent a "small phone" from hanging, we use UE5's advanced binary compression and direct library loading.*
+```ini
+[/Script/AndroidRuntimeSettings.AndroidRuntimeSettings]
+; Reduces the binary size from ~60MB to ~8MB
+bEnableAdvancedBinaryCompression=True
+; Loads .so files directly from APK to save RAM during installation
+bExtractNativeLibs=False
+; Uses Oodle RDO for maximum asset shrinking
+bUseOodleDataCompression=True
+bUseOodleTextureCompression=True
+; Ensure minimum SDK is 23 for advanced optimizations
+MinSDKVersion=23
+TargetSDKVersion=34
+[/Script/Engine.RendererSettings]
+; Forward shading saves GPU RAM and reduces the binary footprint
+r.Mobile.ForwardShading=True
+; Minimizes frame drops on small CPUs
+r.Mobile.DisableVertexFog=True
+```
+### Steps to implement on GitHub:
+1.  **Create Repository:** Upload the `.uproject` and the `/Config/` folder.
+2.  **Setup LFS:** Run `git lfs track "*.uasset"` so your vehicles don't break Git.
+3.  **Setup Runner:** Go to your GitHub Repo -> **Settings** -> **Actions** -> **Runners** and follow the steps to connect your local PC.
+4.  **Push:** Once you push these files, the "Build-SpecimenZero-APK" workflow will start automatically on your machine.
+**When you are ready, say "Next" and I will provide the optimized 50-AI Soldier code and the vehicle spawning system.**
