@@ -1,0 +1,106 @@
+name: Reorganize Repo Structure
+
+# Run this ONCE from the Actions tab (workflow_dispatch button) to fix
+# the recursive Source/ nesting bug caused by GitHub's mobile file creator.
+# Tested against your actual repo contents before being handed to you.
+# After it succeeds and you've confirmed the structure looks right, delete this file.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fix-structure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Move source files to correct locations
+        run: |
+          set -e
+          mkdir -p Config
+          mkdir -p "Source/SpecimenZero/Public/AI"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/SZMobileAI.h" "Source/SpecimenZero/Public/AI/SZMobileAI.h"
+          mkdir -p "Source/SpecimenZero/Private/AI"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/SZMobileAI.cpp" "Source/SpecimenZero/Private/AI/SZMobileAI.cpp"
+          mkdir -p "Source/SpecimenZero/Private/Weapon"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/SZProjectile.cpp" "Source/SpecimenZero/Private/Weapon/SZProjectile.cpp"
+          mkdir -p "Source/SpecimenZero/Public/Weapon"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/SZVaccineGun.h" "Source/SpecimenZero/Public/Weapon/SZVaccineGun.h"
+          mkdir -p "Source/SpecimenZero/Private/Weapon"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/SZVaccineGun.cpp" "Source/SpecimenZero/Private/Weapon/SZVaccineGun.cpp"
+          mkdir -p "Source/SpecimenZero/Public/Weapon"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/SZHomingMissile.h" "Source/SpecimenZero/Public/Weapon/SZHomingMissile.h"
+          mkdir -p "Source/SpecimenZero/Private/Weapon"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/SZHomingMissile.cpp" "Source/SpecimenZero/Private/Weapon/SZHomingMissile.cpp"
+          mkdir -p "Source/SpecimenZero/Public/Core"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Core/SZPlayerController.h" "Source/SpecimenZero/Public/Core/SZPlayerController.h"
+          mkdir -p "Source/SpecimenZero/Private/Core"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/SZPlayerController.cpp" "Source/SpecimenZero/Private/Core/SZPlayerController.cpp"
+          mkdir -p "Config"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/UI/.github/workflows/Config/DefaultGame.ini" "Config/DefaultGame.ini"
+          mkdir -p ".github/workflows"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/UI/.github/workflows/android-signing.yml" ".github/workflows/android-signing.yml"
+          mkdir -p "Source/SpecimenZero/Public/UI"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/UI/SZMobileHUD.h" "Source/SpecimenZero/Public/UI/SZMobileHUD.h"
+          mkdir -p "Source/SpecimenZero/Public/Core"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Public/Core/SZGameMode.h" "Source/SpecimenZero/Public/Core/SZGameMode.h"
+          mkdir -p "Config"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Config/DefaultEditor.ini" "Config/DefaultEditor.ini"
+          mkdir -p "Source/SpecimenZero/Public/Core"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Config/Source/SpecimenZero/Public/Core/SZMissionManager.h" "Source/SpecimenZero/Public/Core/SZMissionManager.h"
+          mkdir -p "Source/SpecimenZero/Private/Core"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Config/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/SZMissionManager.cpp" "Source/SpecimenZero/Private/Core/SZMissionManager.cpp"
+          mkdir -p "Source/SpecimenZero/Public/Core"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Config/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Core/SZStaggeredSpawner.h" "Source/SpecimenZero/Public/Core/SZStaggeredSpawner.h"
+          mkdir -p "Source/SpecimenZero/Private/Core"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Config/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/SZStaggeredSpawner.cpp" "Source/SpecimenZero/Private/Core/SZStaggeredSpawner.cpp"
+          mkdir -p "Source/SpecimenZero/Public/Core"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Config/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Core/SZVehicleFactory.h" "Source/SpecimenZero/Public/Core/SZVehicleFactory.h"
+          mkdir -p "Source/SpecimenZero/Private/Core"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Config/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/SZVehicleFactory.cpp" "Source/SpecimenZero/Private/Core/SZVehicleFactory.cpp"
+          mkdir -p "Source/SpecimenZero/Public/Effects"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Config/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Effects/SZParticleManager.h" "Source/SpecimenZero/Public/Effects/SZParticleManager.h"
+          mkdir -p "Source/SpecimenZero/Private/Effects"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Config/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Effects/Source/SpecimenZero/Private/Effects/SZParticleManager.cpp" "Source/SpecimenZero/Private/Effects/SZParticleManager.cpp"
+          mkdir -p "Source/SpecimenZero/Public/UI"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Config/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Effects/Source/SpecimenZero/Private/Effects/Source/SpecimenZero/Public/UI/SZMainMenuWidget.h" "Source/SpecimenZero/Public/UI/SZMainMenuWidget.h"
+          mkdir -p "Config"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Config/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Effects/Source/SpecimenZero/Private/Effects/Source/SpecimenZero/Public/UI/Source/SpecimenZero/Private/UI/Config/DefaultPakFileRules.ini" "Config/DefaultPakFileRules.ini"
+          mkdir -p "Source/SpecimenZero/Private/Core"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Config/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Effects/Source/SpecimenZero/Private/Effects/Source/SpecimenZero/Public/UI/Source/SpecimenZero/Private/UI/Config/Source/SpecimenZero/Private/Core/SZAudioManager.cpp" "Source/SpecimenZero/Private/Core/SZAudioManager.cpp"
+          mkdir -p "Source/SpecimenZero/Public/Core"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Config/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Effects/Source/SpecimenZero/Private/Effects/Source/SpecimenZero/Public/UI/Source/SpecimenZero/Private/UI/Config/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Core/SZSettingsManager.h" "Source/SpecimenZero/Public/Core/SZSettingsManager.h"
+          mkdir -p "Source/SpecimenZero/Private/Core"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Config/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Effects/Source/SpecimenZero/Private/Effects/Source/SpecimenZero/Public/UI/Source/SpecimenZero/Private/UI/Config/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/SZSettingsManager.cpp" "Source/SpecimenZero/Private/Core/SZSettingsManager.cpp"
+          mkdir -p "Source/SpecimenZero/Public/Core"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Config/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Effects/Source/SpecimenZero/Private/Effects/Source/SpecimenZero/Public/UI/Source/SpecimenZero/Private/UI/Config/Source/SpecimenZero/Public/Core/SZAudioManager.h" "Source/SpecimenZero/Public/Core/SZAudioManager.h"
+          mkdir -p "Source/SpecimenZero/Private/UI"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Config/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Effects/Source/SpecimenZero/Private/Effects/Source/SpecimenZero/Public/UI/Source/SpecimenZero/Private/UI/SZMainMenuWidget.cpp" "Source/SpecimenZero/Private/UI/SZMainMenuWidget.cpp"
+          mkdir -p "Source/SpecimenZero/Private/Core"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/SZGameMode.cpp" "Source/SpecimenZero/Private/Core/SZGameMode.cpp"
+          mkdir -p "Source/SpecimenZero/Public/Vehicles"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Public/Vehicles/SZSu27Jet.h" "Source/SpecimenZero/Public/Vehicles/SZSu27Jet.h"
+          mkdir -p "Source/SpecimenZero/Private/Vehicles"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Public/Vehicles/Source/SpecimenZero/Private/Vehicles/SZSu27Jet.cpp" "Source/SpecimenZero/Private/Vehicles/SZSu27Jet.cpp"
+          mkdir -p "Source/SpecimenZero/Public/Core"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Public/Vehicles/Source/SpecimenZero/Private/Vehicles/Source/SpecimenZero/Public/Core/SZSaveSystem.h" "Source/SpecimenZero/Public/Core/SZSaveSystem.h"
+          mkdir -p "Source/SpecimenZero/Public/Core"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Public/Vehicles/Source/SpecimenZero/Private/Vehicles/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Public/Core/SZSaveManager.h" "Source/SpecimenZero/Public/Core/SZSaveManager.h"
+          mkdir -p "Source/SpecimenZero/Private/Core"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Public/Vehicles/Source/SpecimenZero/Private/Vehicles/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/SZSaveManager.cpp" "Source/SpecimenZero/Private/Core/SZSaveManager.cpp"
+          mkdir -p "Source/SpecimenZero/Public/Weapon"
+          git mv ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Public/Vehicles/Source/SpecimenZero/Private/Vehicles/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Weapon/SZProjectile.h" "Source/SpecimenZero/Public/Weapon/SZProjectile.h"
+          git rm ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/Source/SpecimenZero/Private/Weapon/SZHomingMissile.cpp"  # duplicate, identical content already moved
+          git rm ".github/workflows/Source/SpecimenZero/Public/AI/Source/SpecimenZero/Private/AI/Source/SpecimenZero/Public/Vehicles/Source/SpecimenZero/Private/Vehicles/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Public/Core/Source/SpecimenZero/Private/Core/Source/SpecimenZero/Public/Weapon/Source/SpecimenZero/Private/Weapon/SZProjectile.cpp"  # duplicate, identical content already moved
+          rm -f SZSettingsManager.cpp SZVehicleFactory.cpp  # stray root duplicates, correct copies now under Source/
+          rm -rf .github/workflows/Source  # remove now-empty leftover nested tree
+      - name: Commit and push
+        run: |
+          git add -A
+          git commit -m "Fix recursive Source/ nesting - restore proper repo structure" || echo "Nothing to commit"
+          git push
